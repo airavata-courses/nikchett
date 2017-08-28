@@ -1,0 +1,10 @@
+
+public class MemberData {
+	
+private HashMap<Integer, Member> Member(){
+	static {
+		
+	}
+}
+
+}

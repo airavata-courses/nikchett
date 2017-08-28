@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Assignment 1 Java API
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: nikithachettiar
+Implementation-Vendor-Id: com.assignment1
+Build-Jdk: 1.8.0_144
+Implementation-URL: http://projects.spring.io/spring-boot/JavaApi/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

@@ -1,0 +1,20 @@
+import java.util.*;
+
+
+public class MemberData {
+	
+private static Map<Integer, Member>MemberList;
+	
+     static {
+    	 
+    	 MemberList = new HashMap<Integer, Member>() {
+    		 {
+    			 
+    		 }
+    		 
+    	 };
+		
+	}
+
+
+}

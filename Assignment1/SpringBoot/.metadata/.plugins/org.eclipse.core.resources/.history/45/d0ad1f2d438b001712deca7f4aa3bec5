@@ -1,0 +1,12 @@
+import java.util.Map;
+
+public class MemberData {
+	
+private static Map<Integer, Member> Member();
+	
+     static {
+		
+	}
+}
+
+}

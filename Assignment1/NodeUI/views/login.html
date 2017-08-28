@@ -1,0 +1,92 @@
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+<p id = "display"></p>
+
+
+<p id = "displayJava"></p>
+
+<p id = "displayPy"></p>
+
+
+
+<div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">A2Z Library</h1>
+        <p>Welcome to the best library in town! Please login with your registered username.</p>
+        
+      </div>
+    </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3">
+            <div class="form-login">
+            <h4>Welcome back.</h4>
+            <form onsubmit="login()">
+            <input type="text"  class="form-control input-sm chat-input" placeholder="username" id= "username"  required="true" />
+            </br>
+            <input type="password" class="form-control input-sm chat-input" placeholder="password" id ="password" required="true" />
+            </br>
+            <div class="wrapper">
+            <span class="group-btn">     
+                <a href="#" class="btn btn-primary btn-md" onclick="login()">login <i class="fa fa-sign-in"></i></a>
+
+            </span>
+            </div>
+            </form>
+            </div>
+        
+        </div>
+    </div>s
+</div>
+</body>
+
+
+<script type="text/javascript">
+
+
+function login()
+{
+  console.log("in login js"+$("#username").val());
+
+
+      $.ajax({
+      url: "http://localhost:8080/login",  
+      type:"POST",
+      data:{
+        username:$("#username").val(),
+        password:$("#password").val()
+    },
+      success: function(data) {
+        
+        var obj = jQuery.parseJSON(JSON.stringify(data));
+        console.log(obj+"this is response from login");
+   window.sessionStorage.setItem('username', obj['name']);
+  window.sessionStorage.setItem('membershipType', obj['membershipType']);
+  window.sessionStorage.setItem('memberId', obj['memberId']);
+
+
+
+   //req.session.membershiptype = obj.membershipType;
+  window.location.href = '/views/home.html';
+       
+      },
+      error:function(data){
+        alert("Oops! Wrong credentials. Please try again. ");
+      }
+   });
+}
+
+
+</script>
+</html>
