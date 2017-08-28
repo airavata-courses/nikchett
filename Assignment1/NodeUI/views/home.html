@@ -1,113 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>A2Z</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>A2Z</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div class="container">
-  <h2>Hello <span id="uname"></span></h2>
-  <ul class="list-group">
-    <li class="list-group-item">Member Id: <span id= "memberId"></span></li>
-    <li class="list-group-item">Membership Type: <span id="type"></span></li>
-  <li class="list-group-item">Book Currently Issued: <span id="currentIssue"></span></li>
-  </ul>
-</div>
-
-
-<div class="container">
-  <h2>Find books</h2>
-  <p>We have a great collections in various categories</p>
-  <p>Pick a category and check for the books</p>
-  
-   <div class="dropdown">                                    
-  <select class="selectpicker" id="category">
-  <option>Fiction</option>
-  <option>Drama</option>
-  <option>Children</option>
- 
-</select>
+	<div class="container">
+		<h2>Hello <span id="uname"></span></h2>
+		<ul class="list-group">
+			<li class="list-group-item">Member Id: <span id= "memberId"></span></li>
+			<li class="list-group-item">Membership Type: <span id="type"></span></li>
+			<li class="list-group-item">Book Currently Issued: <span id="currentIssue"></span></li>
+		</ul>
+	</div>
 
 
-</div>
-<div style =" margin-top:15px">
-<button type="button" class="btn btn-primary" onclick="bookCategory()">Search</button>
-</div>
-<div style =" margin-top:15px">
-<ul class="list-group" id = "bookList">
-</ul>
-</div>
-</div>
+	<div class="container">
+		<h2>Find books</h2>
+		<p>We have a great collections in various categories</p>
+		<p>Pick a category and check for the books</p>
 
-<div class="container">
-  <h2>About your membership! <span id="uname"></span></h2>
-<div style ="margin-top: 25px" ><button type="button" class="btn btn-primary" onclick="membershipdetails()">Details </button></div>
-</div>
+		<div class="dropdown">                                    
+			<select class="selectpicker" id="category">
+				<option>Fiction</option>
+				<option>Drama</option>
+				<option>Children</option>
+			</select>
+		</div>
 
+		<div style =" margin-top:15px">
+			<button type="button" class="btn btn-primary" onclick="bookCategory()">Search</button>
+		</div>
+		<div style =" margin-top:15px">
+			<ul class="list-group" id = "bookList">
+			</ul>
+		</div>
+	</div>
 
-
-
-  
+	<div class="container">
+		<h2>About your membership! <span id="uname"></span></h2>
+		<div style ="margin-top: 25px" ><button type="button" class="btn btn-primary" onclick="membershipdetails()">Details </button></div>
+	</div>
 
 </body>
 
 <script type="text/javascript">
 
-$( document ).ready(function() {
-    
-$("#uname").text(window.sessionStorage.username);
-$("#memberId").text(window.sessionStorage.memberId);
-$("#type").text(window.sessionStorage.membershipType);
-$("#currentIssue").text(window.sessionStorage.currentIssue);
-});
+	$( document ).ready(function() {
 
-function  bookCategory(){
+		$("#uname").text(window.sessionStorage.username);
+		$("#memberId").text(window.sessionStorage.memberId);
+		$("#type").text(window.sessionStorage.membershipType);
+		$("#currentIssue").text(window.sessionStorage.currentIssue);
+	});
 
-console.log("this is the value"+$("#category").val());
+	function  bookCategory(){
+ 
+		$.ajax({
+			url: "http://localhost:3000/category",  
+			type:"GET",
+			data:{
+				val : 'hope',
+				category:$("#category").val(),
+			},
+			success: function(data) {
+				var arr =  JSON.parse(data);
+				$('#bookList').empty();
+				for(i = 0 ; i< arr.length; i ++)
+				{
+					$("#bookList").append('<li class="list-group-item list-group-item-warning">'+arr[i]+'</li>');
+				}
 
+			}
+		});
+	}
 
-     $.ajax({
-      url: "http://localhost:3001",  
-      type:"GET",
-      data:{
-      	val : 'hope',
-        category:$("#category").val(),
-           },
-      success: function(data) {
-        console.log(data+"this is response from java api");
+	function membershipdetails(){
 
-		var arr =  JSON.parse(data);
-		$('#bookList').empty();
-		 console.log(arr+"this is response from java api");
-
-        for(i = 0 ; i< arr.length; i ++)
-        {
-        	$("#bookList").append('<li class="list-group-item list-group-item-warning">'+arr[i]+'</li>');
-        }
-     
-      }
-   });
-
-}
-
-function membershipdetails(){
-
-      $.ajax({
-      url: "http://localhost:5000/",  
-      type:"GET",
-      data:{membershiptype:window.sessionStorage.membershipType },
-      success: function(data) {
-        console.log(data+"this is response from python");
-        alert(data);
-    }
-   });
-}
-
-	
-</script>>
+		$.ajax({
+			url: "http://localhost:3000/membershipdetails",  
+			type:"GET",
+			data:{membershiptype:window.sessionStorage.membershipType },
+			success: function(data) {
+				alert(data);
+			}
+		});
+	}
+</script>
 </html>
