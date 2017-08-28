@@ -7,6 +7,15 @@ public class Member {
 	private String membershipType;
 	private String name;
 	private String password;
+	private String currentIssue;
+
+	public String getCurrentIssue() {
+		return currentIssue;
+	}
+
+	public void setCurrentIssue(String currentIssue) {
+		this.currentIssue = currentIssue;
+	}
 
 	public Member(int memberId, String membershipType, String name, String password) {
 		this.memberId = memberId;

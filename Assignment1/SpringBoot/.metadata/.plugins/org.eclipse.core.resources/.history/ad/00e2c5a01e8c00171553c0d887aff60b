@@ -1,0 +1,48 @@
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.servlet.http.HttpServletResponse;
+
+@CrossOrigin()
+@RestController
+@EnableAutoConfiguration
+public class Login {
+	MemberData member = new MemberData();
+
+	@RequestMapping("/login")
+	Member home(@RequestParam("username") String username, @RequestParam("password") String password,
+			HttpServletResponse response) {
+
+		if (member.memberIsPresent(username) && member.loginCredentialsVerify(username, password)) {
+			System.out.println("verified" + member.getMemberDetails(username).getName());
+
+			RestTemplate restTemplate = new RestTemplate();
+			String url = "http://localhost:3001/bookname";
+			UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
+					// Add query parameter
+					.queryParam("memberId", member.getMemberId(username));
+			String result = restTemplate.getForObject(builder.build().encode().toUriString(), String.class);
+
+			Member memberResult = member.getMemberDetails(username);
+			memberResult.setCurrentIssue(result);
+			return memberResult;
+
+		} else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return null;
+		}
+
+	}
+
+	public static void main(String args[]) throws Exception {
+		SpringApplication.run(Login.class, args);
+	}
+}

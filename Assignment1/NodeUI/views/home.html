@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>A2Z</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +15,7 @@
   <ul class="list-group">
     <li class="list-group-item">Member Id: <span id= "memberId"></span></li>
     <li class="list-group-item">Membership Type: <span id="type"></span></li>
- 
+  <li class="list-group-item">Book Currently Issued: <span id="currentIssue"></span></li>
   </ul>
 </div>
 
@@ -35,16 +35,19 @@
 
 
 </div>
+<div style =" margin-top:15px">
 <button type="button" class="btn btn-primary" onclick="bookCategory()">Search</button>
-
+</div>
+<div style =" margin-top:15px">
 <ul class="list-group" id = "bookList">
 </ul>
 </div>
-
-<div class="alert alert-success" role="alert">
-  Find about your membership 
 </div>
+
+<div class="container">
+  <h2>About your membership! <span id="uname"></span></h2>
 <div style ="margin-top: 25px" ><button type="button" class="btn btn-primary" onclick="membershipdetails()">Details </button></div>
+</div>
 
 
 
@@ -60,7 +63,7 @@ $( document ).ready(function() {
 $("#uname").text(window.sessionStorage.username);
 $("#memberId").text(window.sessionStorage.memberId);
 $("#type").text(window.sessionStorage.membershipType);
-
+$("#currentIssue").text(window.sessionStorage.currentIssue);
 });
 
 function  bookCategory(){
@@ -84,7 +87,7 @@ console.log("this is the value"+$("#category").val());
 
         for(i = 0 ; i< arr.length; i ++)
         {
-        	$("#bookList").append('<li class="list-group-item list-group-item-warning">'+arr[i]+'<li>');
+        	$("#bookList").append('<li class="list-group-item list-group-item-warning">'+arr[i]+'</li>');
         }
      
       }

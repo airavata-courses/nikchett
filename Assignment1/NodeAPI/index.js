@@ -21,11 +21,11 @@ console.log(req.body.category);
 	console.log(cat+ "this is category");
 
 var list = [
-    { category: 'Drama', bookname: 'Jane Austen' },
+    { category: 'Drama', bookname: 'Shining' },
     { category: 'Fiction', bookname: 'Gone Girl'},
-    { category: 'Children', bookname: 'harry potter'},
+    { category: 'Children', bookname: 'Harry potter'},
      { category: 'Drama', bookname: 'Letters' },
-    { category: 'Fiction', bookname: 'GOT'},
+    { category: 'Fiction', bookname: 'Dune'},
     { category: 'Children', bookname: 'Rupanzel'}
 ];
 
@@ -50,8 +50,28 @@ res.send(response);
 
 
 app.get('/bookname', cors(),function(req, res){
-console.log("Waiting for java");
-res.send("hello to java");
+	console.log(req.query.memberId);
+//console.log("Waiting for java"+query.memberId);
+
+var list = [
+    { memberId: '1', bookname: 'Shining - ID101' },
+    { memberId: '2', bookname: 'Gone Girl - ID102'},
+    { memberId: '3', bookname: 'No book issued'},
+     { memberId: '4', bookname: 'Dune - ID108' },
+    { memberId: '5', bookname: 'Letters - ID106'},
+    { memberId: '6', bookname: 'No book issued'}
+
+];
+
+ for(i =0; i <list.length; i++)
+ {
+ 	if( list[i].memberId == req.query.memberId)
+ 		{
+ 			res.send(list[i].bookname);
+ 		}
+ }
+
+res.send("No records for memberId = "+ req.query.memberId);
 });
 
 
