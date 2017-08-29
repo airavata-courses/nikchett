@@ -10,5 +10,5 @@ Set up details
 
 Install all the required softwares and get the services in the Assignment1 folders running
 
-*Hit the http://localhost:3002/ url. It should lead to a login page
-*Enter credentials - username - Tom, password - user123 (case sensitive)
+* Hit the http://localhost:3002/ url. It should lead to a login page
+* Enter credentials - username - Tom, password - user123 (case sensitive). 
