@@ -1,6 +1,0 @@
-public class Hello{
-	
-	String home() {
-		return "Hello World";
-	}
-}

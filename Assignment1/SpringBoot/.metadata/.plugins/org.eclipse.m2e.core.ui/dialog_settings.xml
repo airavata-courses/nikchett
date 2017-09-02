@@ -5,9 +5,11 @@
 			<item value="com.assignment1"/>
 		</list>
 		<list key="name">
+			<item value="APIGateway"/>
 			<item value="Assignment 1 Java API"/>
 		</list>
 		<list key="artifactId">
+			<item value="ApiGateway"/>
 			<item value="JavaApi"/>
 		</list>
 		<list key="projectNameTemplate">
