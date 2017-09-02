@@ -6,7 +6,9 @@ Set up details
 * Java 1.8
 * Flask - https://www.tutorialspoint.com/flask/flask_environment.htm
 * Express.js - https://nodejs.org/en/ , https://www.tutorialspoint.com/expressjs/expressjs_environment.htm
-* Spring Boot - https://www.youtube.com/watch?v=msXL2oDexqw&list=PLqq-6Pq4lTTbx8p2oCgcAQGQyqN8XeA1x
+* Spring Boot - Download and install Java version 8.
+  Navigate to the SpringBoot/JavaApi/target folder on the terminal. 
+  Use the command -- java -jar JavaApi-0.0.1-SNAPSHOT.jar
 
 Install all the required softwares and get the services in the Assignment1 folders running
 
