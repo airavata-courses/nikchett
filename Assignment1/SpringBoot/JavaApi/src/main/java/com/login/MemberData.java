@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.stereotype.Repository;
 
 //this class acts as data repository holding member details
+@SuppressWarnings("serial")
 @Repository
 public class MemberData {
 
@@ -19,7 +20,7 @@ public class MemberData {
 				put("Nick", new Member(4, "Gold", "Nick", "user123"));
 				put("Jane", new Member(5, "Silver", "Jane", "user123"));
 				put("Ray", new Member(6, "Platinum", "Ray", "user123"));
-
+				put("a", new Member(7, "Silver", "a", "a"));
 			}
 		};
 	}
