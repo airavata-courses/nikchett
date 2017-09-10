@@ -72,6 +72,33 @@ app.get('/bookname', cors(),function(req, res){
 
 // **************
 
+function getCurrentIssue(memberId) {
+
+		var list = [
+	    { memberId: '1', bookname: 'Shining - ID101' },
+	    { memberId: '2', bookname: 'Gone Girl - ID102'},
+	    { memberId: '3', bookname: 'No book issued'},
+	    { memberId: '4', bookname: 'Dune - ID108' },
+	    { memberId: '5', bookname: 'Letters - ID106'},
+	    { memberId: '6', bookname: 'No book issued'}
+
+	];
+	var memberPresent = false;
+	 for(i =0; i <list.length; i++)
+	 {
+	 	if( list[i].memberId == memberId)
+	 		{
+	 			memberPresent = true;
+	 			return list[i].bookname;
+	 		}
+	 }
+	if(memberPresent ==false)
+	{
+	return "No records for memberId = "+ memberId;
+	}
+
+}
+
 function getBookList(category) {
 	var list = [
 	    { category: 'Drama', bookname: 'Shining' },
@@ -109,6 +136,29 @@ amqp.connect('amqp://localhost', function(err, conn) {
 
 		ch.sendToQueue(msg.properties.replyTo,
 			new Buffer(getBookList(json.category)),
+			{correlationId: msg.properties.correlationId}
+		);
+
+		ch.ack(msg);
+    });
+  });
+});
+
+
+amqp.connect('amqp://localhost', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    var q = 'currentIssue';
+
+    ch.assertQueue(q, {durable: false});
+    ch.prefetch(1);
+    console.log(' [x] Awaiting RPC requests');
+
+    ch.consume(q, function reply(msg) {
+		//var json = JSON.parse();
+		console.log(" memberId "+msg.content.toString());
+
+		ch.sendToQueue(msg.properties.replyTo,
+			new Buffer(getCurrentIssue(msg.content.toString())),
 			{correlationId: msg.properties.correlationId}
 		);
 
