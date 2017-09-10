@@ -4,6 +4,10 @@ var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var request = require('request');
+//rabbit mq
+
+var amqp = require('amqplib/callback_api');
+
 
 app.use(bodyParser.json());
 
@@ -30,16 +34,6 @@ app.get('/login', function(req, res) {
 	}
 });
 
-//REST call to  microservice to get list of books with book details
-app.get('/category', function(req, res) { 
-
-	request.get({ url: "http://localhost:3001/category?category="+req.query.category}, function(error, response, body) { 
-		if (!error && response.statusCode == 200) { 
-			res.send(response.body);
-		} 
-	}); 
-});
-
 //REST call to microservice to get membership details depending on membership type
 app.get('/membershipdetails', function(req, res) { 
 
@@ -50,5 +44,41 @@ app.get('/membershipdetails', function(req, res) {
  }); 
 });
 
+
+
+app.get('/category', function(req, res) { 
+	console.log("Received: "+(req)); 
+	
+	var category = JSON.stringify(req.query);
+
+	amqp.connect('amqp://localhost', function(err, conn) {
+		console.log('In producer query --> query params' + category);
+
+		conn.createChannel(function(err, ch) {
+		    ch.assertQueue('', {exclusive: true}, function(err, q) {
+				var corr = generateUuid();
+				
+				ch.consume(q.queue, function(msg) {
+					if (msg.properties.correlationId == corr) {
+					  	console.log(' [.] Got %s', msg.content.toString());
+					  	res.send(msg.content.toString());
+					}
+				}, {noAck: true}
+				);
+
+				ch.sendToQueue('bookname',
+					new Buffer(category),
+					{ correlationId: corr, replyTo: q.queue }
+				);
+		    });
+		});
+	});
+});
+
+function generateUuid() {
+  return Math.random().toString() +
+         Math.random().toString() +
+         Math.random().toString();
+}
 
 app.listen(3000);
