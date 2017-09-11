@@ -107,7 +107,7 @@ public class Login {
 		try {
 			currentIssue = new RPCClient();
 
-			System.out.println(" [x] Requesting fib(30)");
+			System.out.println(" [x] Requesting current issue");
 			response = currentIssue.call("" + memberId);
 			System.out.println(" [.] Got '" + response + "'");
 		} catch (IOException | TimeoutException | InterruptedException e) {
