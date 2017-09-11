@@ -3,7 +3,6 @@ package com.login;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import org.hibernate.validator.internal.util.privilegedactions.GetConstraintValidatorList;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
@@ -89,14 +88,13 @@ public class Login {
 		String password = jsonObj.getString("password");
 
 		if (member.memberIsPresent(username) && member.loginCredentialsVerify(username, password)) {
-			
+
 			Member memberResult = member.getMemberDetails(username);
 			memberResult.setCurrentIssue(getCurrentIssue(memberResult.getMemberId()));
 			return memberResult.toString();
 
 		} else {
 			// if invalid credentials send error response
-			// response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return "no";
 		}
 	}
@@ -122,4 +120,3 @@ public class Login {
 		SpringApplication.run(Login.class, args);
 	}
 }
-
