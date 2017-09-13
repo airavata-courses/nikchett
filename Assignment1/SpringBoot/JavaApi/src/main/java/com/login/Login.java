@@ -68,7 +68,7 @@ public class Login {
 				} catch (InterruptedException _ignore) {
 				}
 			}
-		} catch (IOException | TimeoutException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (connection != null)
@@ -108,7 +108,7 @@ public class Login {
 			System.out.println(" [x] Requesting current issue");
 			response = currentIssue.call("" + memberId);
 			System.out.println(" [.] Got '" + response + "'");
-		} catch (IOException | TimeoutException | InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
