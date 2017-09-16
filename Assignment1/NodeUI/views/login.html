@@ -62,36 +62,37 @@
 	</script>
 
 	<script type="text/javascript">
-
+		
 		function login()
 		{
-			$.ajax({
-				url: "http://localhost:3000/login",  
-				type:"GET",
-				data:{
-					username:$("#username").val(),
-					password:$("#password").val()
-				},
-				success: function(data) {
+			window.location.href = '/views/home.html';
+			// $.ajax({
+			// 	url: "http://localhost:3000/login",  
+			// 	type:"GET",
+			// 	data:{
+			// 		username:$("#username").val(),
+			// 		password:$("#password").val()
+			// 	},
+			// 	success: function(data) {
 
-					console.log(data);
-					console.log("my name: " + data['name']);
+			// 		// console.log(data);
+			// 		// console.log("my name: " + data['name']);
 
-					var obj = JSON.parse(data);
-					console.log("my name: " + obj.name);
+			// 		// var obj = JSON.parse(data);
+			// 		// console.log("my name: " + obj.name);
 
-					window.sessionStorage.setItem('username', obj.name);
-					window.sessionStorage.setItem('membershipType', obj.membershipType);
-					window.sessionStorage.setItem('memberId', obj.memberId);
-					window.sessionStorage.setItem('currentIssue', obj.currentIssue);
+			// 		// window.sessionStorage.setItem('username', obj.name);
+			// 		// window.sessionStorage.setItem('membershipType', obj.membershipType);
+			// 		// window.sessionStorage.setItem('memberId', obj.memberId);
+			// 		// window.sessionStorage.setItem('currentIssue', obj.currentIssue);
 
-					window.location.href = '/views/home.html';
+			// 		window.location.href = '/views/home.html';
 				 
-				},
-				error:function(data){
-					alert("Oops! Wrong credentials. Please try again. ");
-				}
-			});
+			// 	},
+			// 	error:function(data){
+			// 		alert("Oops! Wrong credentials. Please try again. ");
+			// 	}
+			// });
 		}
 
 	</script>
