@@ -58,7 +58,7 @@ function getBookList(category) {
 	return JSON.stringify(result);
 }
 
-amqp.connect('amqp://localhost', function(err, conn) {
+amqp.connect('amqp://rabbithost', function(err, conn) {
   conn.createChannel(function(err, ch) {
     var q = 'bookname';
 
@@ -81,38 +81,38 @@ amqp.connect('amqp://localhost', function(err, conn) {
 });
 
 
-amqp.connect('amqp://localhost', function(err, conn) {
-  conn.createChannel(function(err, ch) {
-    var q = 'currentIssue';
+// amqp.connect('amqp://localhost', function(err, conn) {
+//   conn.createChannel(function(err, ch) {
+//     var q = 'currentIssue';
 
-    ch.assertQueue(q, {durable: false});
-    ch.prefetch(1);
-    console.log(' [x] Awaiting RPC requests');
+//     ch.assertQueue(q, {durable: false});
+//     ch.prefetch(1);
+//     console.log(' [x] Awaiting RPC requests');
 
-    ch.consume(q, function reply(msg) {
-		console.log(" memberId "+msg.content.toString());
+//     ch.consume(q, function reply(msg) {
+// 		console.log(" memberId "+msg.content.toString());
 
-		ch.sendToQueue(msg.properties.replyTo,
-			new Buffer(getCurrentIssue(msg.content.toString())),
-			{correlationId: msg.properties.correlationId}
-		);
+// 		ch.sendToQueue(msg.properties.replyTo,
+// 			new Buffer(getCurrentIssue(msg.content.toString())),
+// 			{correlationId: msg.properties.correlationId}
+// 		);
 
-		ch.ack(msg);
-    });
-  });
-});
+// 		ch.ack(msg);
+//     });
+//   });
+// });
 
-amqp.connect('amqp://localhost', function(err, conn, req) {
+// amqp.connect('amqp://localhost', function(err, conn, req) {
 		
-  	conn.createChannel(function(err, ch) {
-	    var q = 'hey';
+//   	conn.createChannel(function(err, ch) {
+// 	    var q = 'hey';
 
-	    ch.assertQueue(q, {durable: false});
-	    console.log(" [*] Waiting for messages in  get %s. To exit press CTRL+C", q);
-	    ch.consume(q, function(msg) {
-	    console.log(" [x] Received %s", msg.content.toString());
-    }, {noAck: true});
-  });
-});
+// 	    ch.assertQueue(q, {durable: false});
+// 	    console.log(" [*] Waiting for messages in  get %s. To exit press CTRL+C", q);
+// 	    ch.consume(q, function(msg) {
+// 	    console.log(" [x] Received %s", msg.content.toString());
+//     }, {noAck: true});
+//   });
+// });
 
 app.listen(3001);

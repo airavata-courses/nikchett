@@ -10,33 +10,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get('/login', function(req, res) { 
-	console.log("Received: "+(req)); 
+app.get('/', function(req, res) { 
 	
-	var creds = JSON.stringify(req.query);
-
-	amqp.connect('amqp://localhost', function(err, conn) {
-		console.log('In producer query --> query params' + creds);
-
-		conn.createChannel(function(err, ch) {
-		    ch.assertQueue('', {exclusive: true}, function(err, q) {
-				var corr = generateUuid();
-				
-				ch.consume(q.queue, function(msg) {
-					if (msg.properties.correlationId == corr) {
-					  	console.log(' [.] Got %s', msg.content.toString());
-					  	res.send(msg.content.toString());
-					}
-				}, {noAck: true}
-				);
-
-				ch.sendToQueue('login',
-					new Buffer(creds),
-					{ correlationId: corr, replyTo: q.queue }
-				);
-		    });
-		});
-	});
+	res.send("hello dock node");
 });
 
 app.get('/category', function(req, res) { 
@@ -44,7 +20,7 @@ app.get('/category', function(req, res) {
 	
 	var category = JSON.stringify(req.query);
 
-	amqp.connect('amqp://localhost', function(err, conn) {
+	amqp.connect('amqp://rabbithost', function(err, conn) {
 		console.log('In producer query --> query params' + category);
 
 		conn.createChannel(function(err, ch) {
@@ -72,7 +48,7 @@ app.get('/membershipdetails', function(req, res) {
 	var membershipdetails = req.query.membershiptype;
 	console.log("Received membershipdetails: "+(membershipdetails['membershiptype'])); 
 
-	amqp.connect('amqp://localhost', function(err, conn) {
+	amqp.connect('amqp://rabbithost', function(err, conn) {
 		console.log('In producer query --> query params' + req.query.membershiptype);
 
 		conn.createChannel(function(err, ch) {
@@ -102,4 +78,6 @@ function generateUuid() {
          Math.random().toString();
 }
 
-app.listen(3000);
+app.listen(3000,function(){
+	console.log("gateway listening");
+});
