@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.springframework.web.util.UriComponentsBuilder"/>
+<fullyQualifiedTypeName name="com.rabbitmq.client.ConnectionFactory"/>
+<fullyQualifiedTypeName name="com.rabbitmq.client.Consumer"/>
+<fullyQualifiedTypeName name="com.rabbitmq.client.AMQP.Channel"/>
+<fullyQualifiedTypeName name="com.rabbitmq.client.AMQP.Connection"/>
+<fullyQualifiedTypeName name="org.hibernate.validator.internal.util.privilegedactions.GetConstraintValidatorList"/>
 </qualifiedTypeNameHistroy>

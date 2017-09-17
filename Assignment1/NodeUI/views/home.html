@@ -9,14 +9,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+<!-- 	<div class="container">
 		<h2>Hello <span id="uname"></span></h2>
 		<ul class="list-group">
 			<li class="list-group-item">Member Id: <span id= "memberId"></span></li>
 			<li class="list-group-item">Membership Type: <span id="type"></span></li>
 			<li class="list-group-item">Book Currently Issued: <span id="currentIssue"></span></li>
 		</ul>
-	</div>
+	</div> -->
 
 
 	<div class="container">
@@ -43,6 +43,13 @@
 
 	<div class="container">
 		<h2>About your membership! <span id="uname"></span></h2>
+		<div class="dropdown">                                    
+			<select class="selectpicker" id="membershiptype">
+				<option>Gold</option>
+				<option>Platinum</option>
+				<option>Silver</option>
+			</select>
+		</div>
 		<div style ="margin-top: 25px" ><button type="button" class="btn btn-primary" onclick="membershipdetails()">Details </button></div>
 	</div>
 
@@ -50,13 +57,13 @@
 
 <script type="text/javascript">
 
-	$( document ).ready(function() {
+	// $( document ).ready(function() {
 
-		$("#uname").text(window.sessionStorage.username);
-		$("#memberId").text(window.sessionStorage.memberId);
-		$("#type").text(window.sessionStorage.membershipType);
-		$("#currentIssue").text(window.sessionStorage.currentIssue);
-	});
+	// 	$("#uname").text(window.sessionStorage.username);
+	// 	$("#memberId").text(window.sessionStorage.memberId);
+	// 	$("#type").text(window.sessionStorage.membershipType);
+	// 	$("#currentIssue").text(window.sessionStorage.currentIssue);
+	// });
 
 	function  bookCategory(){
  
@@ -84,7 +91,7 @@
 		$.ajax({
 			url: "http://localhost:3000/membershipdetails",  
 			type:"GET",
-			data:{membershiptype:window.sessionStorage.membershipType },
+			data:{membershiptype:$("#membershiptype").val() },
 			success: function(data) {
 				alert(data);
 			}

@@ -1,13 +1,12 @@
 package com.login;
-
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.login.Member;
+import com.login.MemberData;
+import com.login.RPCClient;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -16,8 +15,7 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-@SpringBootApplication
-public class Login {
+public class MemberVerify {
 	final static String RPC_QUEUE_NAME = "login";
 
 	{
@@ -114,9 +112,5 @@ public class Login {
 
 		return response;
 
-	}
-
-	public static void main(String args[]) throws Exception {
-		SpringApplication.run(Login.class, args);
 	}
 }
