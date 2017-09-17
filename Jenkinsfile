@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("nikchett/nodeui1")
+        app = docker.build("nikchett/nodeui2”)
     }
 
     
@@ -19,7 +19,7 @@ node {
         
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
-            app.push("nikchett/nodeui1")
+            app.push(“latest”)
         }
     }
 }
