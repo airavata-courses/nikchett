@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("nikchett/Assignment1/NodeUI/")
+        app = docker.build("nikchett/nodeui1”,”-file /Assignment1/NodeUI/”)
     }
 
     
