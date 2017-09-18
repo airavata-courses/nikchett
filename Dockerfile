@@ -1,14 +1,14 @@
 FROM node:boron
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json .
 
 RUN npm install
 
 # Bundle app source
-COPY . /usr/src/app
+COPY . /app
 
 
 CMD node index.js
