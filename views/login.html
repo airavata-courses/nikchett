@@ -52,7 +52,7 @@
 		var on_connect = function() {
 		    console.log('connected');
 		    var data = { "name":"John", "age":30, "car":null };
-		    var d = "testRohit";
+		    var d = "";
 			client.send('http://localhost:3000/try', {"content-type":"text/plain"}, d);
 		};
 		var on_error =  function() {
