@@ -9,13 +9,13 @@ checkout scm
 
 stage('Build image') {
 
-app = docker.build("nikchett/microserviceFlask")
+app = docker.build("nikchett/microserviceflask")
 
 }
 
 stage('Deploy'){
 
-def c = docker.image('nikchett/microserviceFlask').run('-p 5000:5000 --link hey-rabbit:rabbithost')
+def c = docker.image('nikchett/microserviceflask').run('-p 5000:5000 --link hey-rabbit:rabbithost')
 }
 
 }
