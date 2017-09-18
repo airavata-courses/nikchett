@@ -11,10 +11,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("nikchett/nodeui2")
+        app = docker.build("nikchett/ui17")
     }
     stage('Deploy'){
-        docker.image('nikchett/nodeui2').withRun('-p 3002:3002') 
+        docker.image('nikchett/nodeui2').withRun('-p 3002:3002'){ c ->
+
+            sh 'make check'
+        }
     }
 
 
