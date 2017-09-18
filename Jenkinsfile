@@ -11,10 +11,10 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("nikchett/ui25")
+        app = docker.build("nodeui")
     }
     stage('Deploy'){
-        def c = docker.image('nikchett/ui25').run('-p 3004:3004')
+        def c = docker.image('nodeui').run('-p 3007:3007')
     }
 
 }
