@@ -1,25 +1,21 @@
 node {
-    def app
+def app
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
+stage('Clone repository') {
 
-        checkout scm
-    }
+checkout scm
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
+}
 
-        app = docker.build("nikchett/nodeui1”,”-file /Assignment1/NodeUI/”)
-    }
+stage('Build image') {
 
-    
-    stage('Push image') {
-        
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
-    }
+app = docker.build("nikchett/microserviceFlask")
+
+}
+
+stage('Deploy'){
+
+def c = docker.image('nikchett/microserviceFlask').run('-p 5000:000 --link hey-rabbit:rabbithost')
+}
+
 }

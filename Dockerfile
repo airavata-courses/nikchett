@@ -1,16 +1,6 @@
-# -*- coding: UTF-8 -*-
-FROM ubuntu:14.04
-
-RUN apt-get update -y 
-RUN apt-get install -y python-pip python-dev
-RUN pip install pika
-RUN pip install flask
-RUN pip install flask_cors
-
-WORKDIR /app
-
-COPY . /app
-
-ENTRYPOINT [ "python" ]
-
-CMD [ “Hello.py” ]
+FROM python:2.7
+ADD . /todo
+WORKDIR /todo
+EXPOSE 5000
+RUN pip install -r requirements.txt
+ENTRYPOINT ["python", "Hello.py"]
