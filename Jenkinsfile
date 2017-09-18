@@ -15,7 +15,7 @@ app = docker.build("nikchett/microserviceFlask")
 
 stage('Deploy'){
 
-def c = docker.image('nikchett/microserviceFlask').run('-p 5000:000 --link hey-rabbit:rabbithost')
+def c = docker.image('nikchett/microserviceFlask').run('-p 5000:5000 --link hey-rabbit:rabbithost')
 }
 
 }
