@@ -66,9 +66,9 @@
 	// });
 
 	function  bookCategory(){
- 
+        console.log("request");
 		$.ajax({
-			url: "http://129.114.104.62:3000/category",  
+			url: "http://129.114.104.62:3000/category",
 			type:"GET",
 			data:{
 				val : 'hope',
@@ -89,7 +89,7 @@
 	function membershipdetails(){
 
 		$.ajax({
-			url: "http://localhost:3000/membershipdetails",  
+			url: "http://129.114.104.62:3000/membershipdetails",
 			type:"GET",
 			data:{membershiptype:$("#membershiptype").val() },
 			success: function(data) {
