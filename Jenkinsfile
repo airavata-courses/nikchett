@@ -17,12 +17,4 @@ node {
         def c = docker.image('nikchett/ui17').run('-p 3002:3002')
     }
 
-
-    stage('Push image') {
-        
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push(“latest”)
-        }
-    }
 }
