@@ -14,7 +14,7 @@ node {
         app = docker.build("nikchett/ui17")
     }
     stage('Deploy'){
-        app = docker.image('nikchett/nodeui2').withRun('-p 3002:3002')
+        def c = docker.image('nikchett/ui17').run('-p 3002:3002')
     }
 
 
