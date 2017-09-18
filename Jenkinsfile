@@ -14,9 +14,7 @@ node {
         app = docker.build("nikchett/nodeui2")
     }
     stage('Deploy'){
-        docker.image('nikchett/nodeui2').withRun('-d -p 3002:3002') { c ->
-        sh 'make check'
-        }
+        docker.image('nikchett/nodeui2').withRun('-p 3002:3002') 
     }
 
 
