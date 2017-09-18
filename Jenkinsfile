@@ -14,7 +14,7 @@ node {
         app = docker.build("nodeui")
     }
     stage('Deploy'){
-        def c = docker.image('nodeui').run('-p 3007:3007')
+        def c = docker.image('nodeui').run('-p 3002:3002')
     }
 
 }
