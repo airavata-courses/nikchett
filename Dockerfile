@@ -1,15 +1,14 @@
 FROM node:boron
 
 # Create app directory
-WORKDIR /
+WORKDIR /usr/src/app/ui
 
 COPY package.json .
 
 RUN npm install
 
 # Bundle app source
-COPY . /
+COPY . /usr/src/app/ui
 
-EXPOSE 2007
-
+EXPOSE 3015
 CMD node index.js
