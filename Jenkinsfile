@@ -10,7 +10,8 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
+        sh '''docker stop $(docker ps -q --filter ancestor=nodeui )'''
+        sh '''docker rm $(docker ps -q --filter ancestor=nodeui )'''
         app = docker.build("nodeui")
     }
     stage('Deploy'){
