@@ -13,7 +13,7 @@ node {
             app = docker.build("appui")
     }
     stage('Deploy'){
-        sh '''docker stop $(docker ps -q --filter ancestor=appui )'''
+
         def c = docker.image('appui').run('-p 3007:3007')
     }
 
