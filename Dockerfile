@@ -10,6 +10,6 @@ RUN npm install
 # Bundle app source
 COPY . /
 
-EXPOSE 3007
+EXPOSE 2007
 
 CMD node index.js
