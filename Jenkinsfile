@@ -10,10 +10,10 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-         sh '''docker stop appui || true && docker rm appui'''
-        app = docker.build("appui")
+            app = docker.build("appui")
     }
     stage('Deploy'){
+        sh '''docker stop $(docker ps -q --filter ancestor=appui )'''
         def c = docker.image('appui').run('-p 3007:3007')
     }
 
