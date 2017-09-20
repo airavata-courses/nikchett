@@ -10,12 +10,12 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        sh '''docker stop $(docker ps -q --filter ancestor=nodeui )'''
-        sh '''docker rm $(docker ps -q --filter ancestor=nodeui )'''
+        sh '''docker stop uinode'''
+        sh '''docker rm uinode'''
         app = docker.build("nodeui")
     }
     stage('Deploy'){
-        def c = docker.image('nodeui').run('-p 3002:3002')
+def c = docker.image('nodeui').run('-p 3002:3002 --name uinode')
     }
 
 }
