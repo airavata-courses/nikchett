@@ -10,11 +10,11 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
-        app = docker.build("nodeui")
+         sh '''sudo docker stop appui || true && sudo docker rm appui'''
+        app = docker.build("appui")
     }
     stage('Deploy'){
-        def c = docker.image('nodeui').run('-p 3007:3007')
+        def c = docker.image('appui').run('-p 3007:3007')
     }
 
 }
